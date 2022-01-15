@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <MusicPlayer onAudioMounted={handleAudioMounted} />
+      <MusicPlayer songSlug="det-ar-jag" onAudioMounted={handleAudioMounted} />
       {audioElem && <LyricRenderer lyricSlug="det-ar-jag" audio={audioElem} />}
     </>
   );

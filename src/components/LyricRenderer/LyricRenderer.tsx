@@ -4,17 +4,38 @@ import styled from "styled-components";
 
 const LyricWrapper = styled.div`
   position: fixed;
-  color: white;
+  color: #ffe74d;
   z-index: 1000;
   font-family: "Montserrat", sans-serif;
   font-weight: 900;
-  font-size: 5rem;
+  font-size: 4rem;
   text-transform: uppercase;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
+
+  @keyframes shake {
+    0% {
+      transform: translate(-50%, -50%);
+    }
+
+    25% {
+      transform: translate(-49%, -49%);
+    }
+
+    50% {
+      transform: translate(-51%, -49%);
+    }
+
+    50% {
+      transform: translate(-51%, -51%);
+    }
+  }
+  &.shake {
+    animation: 0.1s 4 alternate shake;
+  }
 `;
 
 export default function LyricRenderer({
@@ -52,5 +73,7 @@ export default function LyricRenderer({
     }
   }, [audio, lm]);
 
-  return <LyricWrapper>{currentLyric}</LyricWrapper>;
+  const classlist = currentLyric === currentLyric.toUpperCase() ? "shake" : "";
+
+  return <LyricWrapper className={classlist}>{currentLyric}</LyricWrapper>;
 }

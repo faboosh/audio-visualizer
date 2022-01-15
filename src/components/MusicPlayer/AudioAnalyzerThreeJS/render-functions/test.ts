@@ -14,11 +14,9 @@ export function setup(
   const { width, height } = getSize(renderer);
   camera.position.z = 5;
 
-  const geometry = new THREE.IcosahedronGeometry(0.2);
+  const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
   const material = new THREE.MeshBasicMaterial({
-    color: "#433F81",
-    wireframe: true,
-    wireframeLinewidth: 5,
+    color: "#27becc",
   });
   const spacing = 5;
 
@@ -27,12 +25,14 @@ export function setup(
     const cube = new THREE.Mesh(geometry, material);
     cube.position.x = (progress - 0.5) * spacing;
     cube.position.z = 0;
+    cube.scale.y = 0.1;
     objects.push(cube);
 
     // Add cube to Scene
     scene.add(cube);
   }
   camera.position.y = 2;
+  renderer.setClearColor(0x1d0d3d, 1);
 }
 
 const start = performance.now();
@@ -61,7 +61,7 @@ export function update(
 
     // cube.position.z = Math.sin(elapsed * 0.001) * (progress - 0.5) * 3;
 
-    cube.position.y = amp;
+    cube.scale.y = amp;
   }
 
   // cube.rotation.x += 0.01;

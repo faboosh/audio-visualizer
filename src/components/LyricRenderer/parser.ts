@@ -75,14 +75,6 @@ export class LyricManager {
   }
 
   getLyricAt(timestamp: number) {
-    // const [_, lyric] = this.lyrics.reduce((prev, curr) => {
-    //   const [prevTS] = prev;
-    //   const [currTS] = curr;
-    //   const deltaTS = currTS - prevTS
-    //   return Math.abs(currTS - timestamp) < Math.abs(prevTS - timestamp)
-    //     ? curr
-    //     : prev;
-    // });
     let match = "";
 
     for (let i = 0; i < this.lyrics.length; i++) {
