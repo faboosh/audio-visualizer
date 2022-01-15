@@ -3,6 +3,7 @@ import FilePicker from "./FilePicker";
 import styled from "styled-components";
 import AudioAnalyzerTwoJS from "./AudioAnalyzerTwoJS/AudioAnalyzerTwoJS";
 import AudioAnalyzerPixiJS from "./AudioAnalyzerPixiJS/AudioAnalyzerPixiJS";
+import AudioAnalyzerThreeJS from "./AudioAnalyzerThreeJS/AudioAnalyzerThreeJS";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -21,7 +22,11 @@ const PickerPlayerWrapper = styled.div`
   border-radius: 0.25rem;
 `;
 
-export default function MusicPlayer() {
+export default function MusicPlayer({
+  onAudioMounted,
+}: {
+  onAudioMounted: Function;
+}) {
   const [audioFile, setAudioFile] = useState("");
   const [audioURL, setAudioURL] = useState("");
   const audioRef = useRef();
@@ -32,6 +37,12 @@ export default function MusicPlayer() {
     setAudioURL(URL.createObjectURL(audioFile));
   }
 
+  useEffect(() => {
+    if (audioRef) {
+      onAudioMounted(audioRef.current);
+    }
+  }, [audioRef]);
+
   return (
     <StyledWrapper>
       <PickerPlayerWrapper>
@@ -39,7 +50,7 @@ export default function MusicPlayer() {
         <FilePicker onChange={handleAudioFile} />
       </PickerPlayerWrapper>
       {/* <AudioAnalyzerTwoJS audioRef={audioRef} audioFile={audioFile} /> */}
-      <AudioAnalyzerPixiJS audioRef={audioRef} audioFile={audioFile} />
+      <AudioAnalyzerThreeJS audioRef={audioRef} audioFile={audioFile} />
       {/* <AudioAnalyzer audioRef={audioRef} audioFile={audioFile} /> */}
     </StyledWrapper>
   );

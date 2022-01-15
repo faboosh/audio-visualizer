@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import * as THREE from "three";
 import {
   getScaledFFT,
   getTiltedFFT,
@@ -6,33 +7,44 @@ import {
   interpolateFFTBands,
 } from "./audioUtils";
 
-export function PixiJSAudio(
-  pixiJSMount,
+let camera: THREE.Camera;
+let scene: THREE.Scene;
+let renderer: THREE.WebGLRenderer;
+
+export function ThreeJSAudio(
+  threeJSMount,
   audioMount,
   setupFunction,
   updateFunction
 ) {
-  let data = {};
   const audio = setupAudio(audioMount);
-  const app = new PIXI.Application({
-    backgroundColor: 0x111111,
-  });
-  app.resizeTo = window;
-  pixiJSMount.appendChild(app.view);
 
   setup();
 
   function setup() {
-    data = setupFunction(app, audio);
+    camera = new THREE.PerspectiveCamera(
+      70,
+      window.innerWidth / window.innerHeight,
+      0.01,
+      10
+    );
+    camera.position.z = 1;
+
+    scene = new THREE.Scene();
+
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setAnimationLoop(update);
+    threeJSMount.appendChild(renderer.domElement);
+    setupFunction(camera, scene, renderer, audio);
   }
 
   function update(delta) {
-    updateFunction(app, audio, data, delta);
+    updateFunction(camera, scene, renderer, audio, delta);
   }
-  app.ticker.add(update);
 
   return function unmount() {
-    pixiJSMount.removeChild(app.view);
+    threeJSMount.removeChild(renderer.domElement);
   };
 }
 
