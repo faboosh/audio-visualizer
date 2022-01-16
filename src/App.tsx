@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LyricRenderer from "./components/LyricRenderer/LyricRenderer";
 import MusicPlayer from "./components/MusicPlayer";
 import styled from "styled-components";
+import SongPicker from "./components/MusicPlayer/SongPicker/SongPicker";
 
 const InteractContainer = styled.div`
   position: fixed;
@@ -50,12 +51,28 @@ const InteractButton = styled.button`
   }
 `;
 
+const BackButton = styled(InteractButton)`
+  background: transparent;
+  color: #fde968;
+  position: fixed;
+  top: 3rem;
+  left: 3rem;
+  z-index: 100000000;
+  text-transform: uppercase;
+  font-size: 2rem;
+`;
+
 function App() {
   const [interacted, setInteracted] = useState(false);
+  const [songSlug, setSongSlug] = useState(null);
 
   const [audioElem, setAudioElem] = useState<null | HTMLAudioElement>(null);
   function handleAudioMounted(audioElem: HTMLAudioElement) {
     setAudioElem(audioElem);
+  }
+
+  function handleChangeSongSlug(songSlug) {
+    setSongSlug(songSlug);
   }
 
   return (
@@ -69,14 +86,21 @@ function App() {
           </InteractContainer>
         </>
       )}
-      {interacted && (
+
+      {!songSlug && interacted && (
         <>
+          <SongPicker songSlug={songSlug} onChange={handleChangeSongSlug} />
+        </>
+      )}
+      {interacted && songSlug && (
+        <>
+          <BackButton onClick={() => setSongSlug(null)}>Go back</BackButton>
           <MusicPlayer
-            songSlug="stor-map"
+            songSlug={songSlug}
             onAudioMounted={handleAudioMounted}
           />
           {audioElem && (
-            <LyricRenderer lyricSlug="stor-map" audio={audioElem} />
+            <LyricRenderer lyricSlug={songSlug} audio={audioElem} />
           )}
         </>
       )}
