@@ -26,7 +26,7 @@ export function ThreeJSAudio(
       70,
       window.innerWidth / window.innerHeight,
       0.01,
-      10
+      200
     );
     camera.position.z = 1;
 

@@ -52,6 +52,7 @@ const InteractButton = styled.button`
 
 function App() {
   const [interacted, setInteracted] = useState(false);
+
   const [audioElem, setAudioElem] = useState<null | HTMLAudioElement>(null);
   function handleAudioMounted(audioElem: HTMLAudioElement) {
     setAudioElem(audioElem);
@@ -71,11 +72,11 @@ function App() {
       {interacted && (
         <>
           <MusicPlayer
-            songSlug="det-ar-jag"
+            songSlug="stor-map"
             onAudioMounted={handleAudioMounted}
           />
           {audioElem && (
-            <LyricRenderer lyricSlug="det-ar-jag" audio={audioElem} />
+            <LyricRenderer lyricSlug="stor-map" audio={audioElem} />
           )}
         </>
       )}
