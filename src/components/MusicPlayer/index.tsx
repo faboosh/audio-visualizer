@@ -82,7 +82,7 @@ const VolumeSliderWrapper = styled.div`
 const ControlWrapper = styled.div`
   position: fixed;
   z-index: 10000;
-  bottom: 1rem;
+  top: 1rem;
   right: 1rem;
   display: flex;
   align-items: center;

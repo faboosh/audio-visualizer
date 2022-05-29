@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const LyricWrapper = styled.div`
   position: fixed;
-  color: #ffe74d;
+  color: #fde968;
   z-index: 1000;
   font-family: "Montserrat", sans-serif;
   font-weight: 900;

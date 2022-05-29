@@ -55,8 +55,8 @@ const BackButton = styled(InteractButton)`
   background: transparent;
   color: #fde968;
   position: fixed;
-  top: 3rem;
-  left: 3rem;
+  top: 1rem;
+  left: 1rem;
   z-index: 100000000;
   text-transform: uppercase;
   font-size: 2rem;
@@ -96,6 +96,7 @@ function App() {
         <>
           <BackButton onClick={() => setSongSlug(null)}>Go back</BackButton>
           <MusicPlayer
+            key={songSlug}
             songSlug={songSlug}
             onAudioMounted={handleAudioMounted}
           />
